@@ -1,0 +1,522 @@
+:root {
+  --color-primary: #F8A5C2;
+  --color-secondary: #6C5B7B;
+  --color-accent: #F5B7B1;
+  --color-heart: #ff6b81;
+  --color-coffee: #6F4E37;
+  --color-nurse: #e74c3c;
+  --text-dark: #333;
+  --text-light: #fff;
+  --bg-light: #FFF5EE;
+  --bg-card: #fff;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --radius-sm: 5px;
+  --radius-md: 12px;
+  --radius-lg: 25px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-light);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+    url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0 L100 0 L100 100 L0 100 Z" fill="none" stroke="%23F8A5C2" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+}
+
+header {
+  background-color: var(--color-primary);
+  color: var(--text-light);
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  border-bottom: 3px solid var(--color-accent);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-image: 
+    linear-gradient(var(--color-primary), var(--color-primary)),
+    url('data:image/svg+xml;utf8,<svg width="100" height="20" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"><path d="M0 10 L10 10 L15 5 L25 15 L35 5 L45 15 L55 5 L65 15 L75 5 L85 15 L95 5 L100 10" fill="none" stroke="%23ffffff50" stroke-width="1"/></svg>');
+  background-repeat: repeat-x;
+  background-position: bottom;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-accent);
+  padding: 0.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+nav button {
+  background-color: var(--bg-card);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  flex-grow: 1;
+  max-width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+nav button:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.05);
+}
+
+nav button:active {
+  background-color: var(--color-primary);
+}
+
+/* Botón especial de café */
+nav button[onclick="mostrarVersiculos('agradecimiento')"] {
+  background-color: var(--color-coffee);
+  color: var(--text-light);
+}
+
+nav button[onclick="mostrarVersiculos('agradecimiento')"]::after {
+  content: "☕";
+  margin-left: 5px;
+  transition: var(--transition);
+}
+
+nav button[onclick="mostrarVersiculos('agradecimiento')"]:hover::after {
+  transform: scale(1.2) rotate(15deg);
+}
+
+/* Botón especial de enfermera */
+nav button[onclick="mostrarVersiculos('valentia')"] {
+  background-color: var(--color-nurse);
+  color: var(--text-light);
+}
+
+nav button[onclick="mostrarVersiculos('valentia')"]::after {
+  content: "🩺";
+  margin-left: 5px;
+  transition: var(--transition);
+}
+
+.container {
+  width: 95%;
+  max-width: 1000px;
+  margin: 1rem auto;
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  /* Efecto de tela de sábana */
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+    url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 L100 20 M0 40 L100 40 M0 60 L100 60 M0 80 L100 80" fill="none" stroke="%23f0f0f0" stroke-width="1.5" stroke-dasharray="5,3"/></svg>');
+  border: 1px solid #f0f0f0;
+  /* Detalle de esquina doblada como sábana */
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, transparent 50%, #f5f5f5 50%);
+  box-shadow: -2px 2px 3px rgba(0,0,0,0.1);
+}
+
+.container::after {
+  content: "🩹";
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-size: 1.2rem;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.versiculo {
+  margin-top: 1rem;
+  position: relative;
+  padding-left: 25px;
+  animation: fadeIn 0.3s ease forwards;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.7);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  /* Línea de pulso cardíaco */
+  border-left: 3px solid var(--color-primary);
+}
+
+.versiculo::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-nurse);
+  border-radius: 50%;
+}
+
+.versiculo button {
+  background-color: var(--color-secondary);
+  color: var(--text-light);
+  padding: 0.8rem 0.8rem 0.8rem 3rem;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  width: 100%;
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  /* Cruz médica en el botón */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffffff50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>');
+  background-repeat: no-repeat;
+  background-position: 15px center;
+}
+
+.versiculo button::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 50%;
+}
+
+/* Efecto de notas médicas */
+.versiculo p {
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-left: 3px solid var(--color-accent);
+  position: relative;
+}
+
+.versiculo p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+}
+
+/* Efecto de corazones al hacer click */
+.versiculo button:active::after,
+.versiculo button.click-effect::after,
+nav button:active::after,
+nav button.click-effect::after {
+  content: "❤️";
+  position: absolute;
+  font-size: 1.2rem;
+  pointer-events: none;
+  animation: heartFloat 1s ease-out forwards;
+  left: calc(10px + (70% * random()));
+}
+
+@keyframes heartFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-20px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(1.5);
+  }
+}
+
+/* Crear múltiples corazones */
+.versiculo button.click-effect::before,
+nav button.click-effect::before {
+  content: "❤️";
+  position: absolute;
+  font-size: 1rem;
+  animation: heartFloat 1.2s ease-out 0.2s forwards;
+  left: calc(10px + (70% * random()));
+}
+
+.versiculo p {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  box-shadow: var(--shadow);
+  transition: opacity 0.3s ease, height 0.3s ease;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.versiculo p.visible {
+  opacity: 1;
+  height: auto;
+  margin: 0.5rem 0 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Media Queries para pantallas más grandes */
+@media (min-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+    padding: 1.5rem;
+  }
+  
+  nav {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  nav button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    max-width: none;
+    flex-grow: 0;
+  }
+  
+  .container {
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+  
+  .versiculo button {
+    padding: 1rem 1rem 1rem 2.5rem;
+    font-size: 1rem;
+  }
+  
+  .versiculo button::before {
+    left: 20px;
+    font-size: 1.2rem;
+  }
+}
+
+header {
+  background-color: var(--color-primary);
+  color: var(--text-light);
+  padding: 1.5rem 1rem;
+  width: 100%;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--shadow);
+  background-image: 
+    linear-gradient(135deg, 
+      rgba(255,182,193,0.8) 0%, 
+      rgba(248,165,194,0.9) 50%, 
+      rgba(245,183,177,1) 100%);
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.emoji-left, .emoji-right {
+  font-size: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+.emoji-right {
+  transform: rotate(-15deg);
+}
+
+.header-subtitle {
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0.9;
+}
+
+.coffee-emoji {
+  font-size: 1.2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.medical-border {
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--text-light),
+    var(--text-light) 10px,
+    var(--color-nurse) 10px,
+    var(--color-nurse) 20px
+  );
+  margin-top: 1rem;
+  position: relative;
+}
+
+.medical-border::after {
+  content: "🩹";
+  position: absolute;
+  right: 20px;
+  top: -12px;
+  font-size: 1.2rem;
+  animation: bandage 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes bandage {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(-10deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  .header-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* [Mantén todos los estilos anteriores y añade estos] */
+
+.header-content {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.sunflower-left, .sunflower-right {
+  position: absolute;
+  font-size: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: sunflower-float 4s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.sunflower-left {
+  left: 0;
+  animation-delay: 0.2s;
+}
+
+.sunflower-right {
+  right: 0;
+}
+
+@keyframes sunflower-float {
+  0%, 100% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-55%) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-45%) rotate(-5deg);
+  }
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+  .sunflower-left, .sunflower-right {
+    font-size: 1.5rem;
+    top: 40%;
+  }
+  
+  .sunflower-left {
+    left: 0.5rem;
+  }
+  
+  .sunflower-right {
+    right: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Añade esto al :root si no lo tienes */
+:root {
+  --color-sunflower: #FFD700;
+}
